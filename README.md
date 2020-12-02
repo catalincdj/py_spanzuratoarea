@@ -1,5 +1,5 @@
 # Name: Spanzuratoarea
-# ID:3
+# ID: 3
 # Difficulty: C
 
 Sa se scrie o aplicatie in care utilizatorul trebuie sa ghicesca un anumit cuvant. Cuvintele vor
@@ -12,5 +12,5 @@ La final, se va afisa cuvantul si numarul de incercari esuate. Cuvintele vor fi 
 specifice categoriilor din care fac parte. De asemenea, se va tine evidenta scorurilor (tot
 intr-un fisier).
 
-# INPUT: sport
-# OUTPUT: FOTBAL, 2 (utilizatorul a incercat 2 litere care nu exista in cuvant)
+## INPUT: sport
+## OUTPUT: FOTBAL, 2 (utilizatorul a incercat 2 litere care nu exista in cuvant)
