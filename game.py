@@ -63,10 +63,8 @@ def solve_word(random_word, attempts, user_category, game_rounds, result_list):
         if check_word == random_word:
             file_to_write = output_folder / "results.json"
             result_data = {"round": game_rounds, "category": user_category, "word": random_word, "attempts": user_attempts}
-            print (game_rounds)
             result_list.append(result_data)
-            json_object = json.dumps(result_list, indent = 4)   
-            print(json_object)  
+            json_object = json.dumps(result_list, indent = 4)    
             if os.stat(file_to_write).st_size == 0:
                 with open(file_to_write, 'w') as json_file:
                     json.dump(result_list, json_file, indent = 4)
