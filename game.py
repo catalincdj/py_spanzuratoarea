@@ -1,7 +1,10 @@
 import random as r
 from pathlib import Path
+import json
+import os
 
 data_folder = Path("src/")
+output_folder = Path("results/")
 
 def get_categories(filename):
     categories = []
@@ -35,7 +38,7 @@ def init_word(word):
     new_word.append(word[len(word) - 1])
     return new_word
 
-def solve_word(random_word, attempts):
+def solve_word(random_word, attempts, user_category, game_rounds, result_list):
     random_word = random_word.upper()
     new_word = init_word(random_word)
     user_attempts = 0
@@ -58,6 +61,21 @@ def solve_word(random_word, attempts):
         user_attempts = user_attempts + 1
         print(user_guess)
         if check_word == random_word:
+            file_to_write = output_folder / "results.json"
+            result_data = {"round": game_rounds, "category": user_category, "word": random_word, "attempts": user_attempts}
+            print (game_rounds)
+            result_list.append(result_data)
+            json_object = json.dumps(result_list, indent = 4)   
+            print(json_object)  
+            if os.stat(file_to_write).st_size == 0:
+                with open(file_to_write, 'w') as json_file:
+                    json.dump(result_list, json_file, indent = 4)
+            else:
+                with open(file_to_write, 'r') as json_read:
+                    json_data = json.load(json_read)
+                with open(file_to_write, 'w') as json_file:
+                    json_data.append(result_list)
+                    json.dump(result_list, json_file, indent = 4)
             return("\nFelicitari! Ai gasit cuvantul {} din {} incercari.".format(random_word, user_attempts))
         else:
             print("\nMai ai {} incercari ramase.".format(attempts))
@@ -69,6 +87,8 @@ def solve_word(random_word, attempts):
 
 
 if __name__ == "__main__":
+    game_rounds = 1
+    result_list = []
     while True:
         ### Categories ###
         categories = get_categories("category")
@@ -92,11 +112,12 @@ if __name__ == "__main__":
         new_word = init_word(word)
 
         attempts = max_attepmts
-        solution = solve_word(random_word, attempts)
+        solution = solve_word(random_word, attempts, filename, game_rounds, result_list)
         print(solution)
         new_game = input("\nDoriti un nou cuvant? (da/nu): ")
         if new_game.lower() == 'da' or new_game.lower() == 'yes':
             print("Mult succes.")
+            game_rounds += 1
             continue
         elif new_game.lower() == 'nu' or new_game.lower() == 'no':
             print("Joc incheiat.")
