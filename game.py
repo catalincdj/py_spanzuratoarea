@@ -1,8 +1,12 @@
 import random as r
+from pathlib import Path
+
+data_folder = Path("src/")
 
 def get_categories(filename):
     categories = []
-    file = open(filename, 'r')
+    file_to_open = data_folder / filename
+    file = open(file_to_open, 'r')
     for i in file.readlines():
         categories.append(i.rstrip())
     file.close()
@@ -11,7 +15,8 @@ def get_categories(filename):
 
 def get_info(filename):
     words = []
-    file = open(filename, 'r')
+    file_to_open = data_folder / filename
+    file = open(file_to_open, 'r')
     for i in file.readlines():
         words.append(i.rstrip())
     nr = int(r.uniform(0, len(words)))
@@ -42,7 +47,8 @@ def solve_word(random_word, attempts):
             new_word[i] = random_word[i]
 
     print("Indiciu: Cuvantul are {} litere: {}".format(len(new_word), ' '.join(new_word).upper()))
-    while(attempts > 0):
+    initial_attempts = attempts
+    while(attempts >= 0):
         user_guess_leter = input("Introduceti o litera: ").upper()
         for i in range(len(random_word)):
             if random_word[i] == user_guess_leter:
@@ -56,6 +62,8 @@ def solve_word(random_word, attempts):
         else:
             print("\nMai ai {} incercari ramase.".format(attempts))
         attempts = attempts - 1
+        if attempts == 0:
+            return("Imi pare rau, ai atins limita de {} incercari.".format(initial_attempts))
     user_guess = ''.join(new_word).upper()
     print(user_guess)
 
