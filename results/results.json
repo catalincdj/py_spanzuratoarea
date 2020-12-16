@@ -1,0 +1,44 @@
+[
+    {
+        "round": 1,
+        "category": "Sport",
+        "word": "MINGE",
+        "attempts": 3,
+        "wrong-attempts": 0
+    },
+    {
+        "round": 2,
+        "category": "Biologie",
+        "word": "CREIER",
+        "attempts": 2,
+        "wrong-attempts": 1
+    },
+    {
+        "round": 3,
+        "category": "Bucatarie",
+        "word": "ARAGAZ",
+        "attempts": 6,
+        "wrong-attempts": 3
+    },
+    {
+        "round": 4,
+        "category": "Biologie",
+        "word": "FICAT",
+        "attempts": 4,
+        "wrong-attempts": 1
+    },
+    {
+        "round": 5,
+        "category": "Nume",
+        "word": "ANA",
+        "attempts": 1,
+        "wrong-attempts": 0
+    },
+    {
+        "round": 6,
+        "category": "Hobby",
+        "word": "CALATORIE",
+        "attempts": 9,
+        "wrong-attempts": 2
+    }
+]
