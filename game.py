@@ -42,6 +42,7 @@ def solve_word(random_word, attempts, user_category, game_rounds, result_list):
     random_word = random_word.upper()
     new_word = init_word(random_word)
     user_attempts = 0
+    wrong_attempts = 0
     
     for i in range(len(random_word)):
         if random_word[i] == new_word[0]:
@@ -51,18 +52,21 @@ def solve_word(random_word, attempts, user_category, game_rounds, result_list):
 
     print("Indiciu: Cuvantul are {} litere: {}".format(len(new_word), ' '.join(new_word).upper()))
     initial_attempts = attempts
+    correct_guess_attempts = 0
     while(attempts >= 0):
         user_guess_leter = input("Introduceti o litera: ").upper()
         for i in range(len(random_word)):
             if random_word[i] == user_guess_leter:
                 new_word[i] = random_word[i]
+                correct_guess_attempts += 1
+
         user_guess = ' '.join(new_word).upper()
         check_word = ''.join(new_word).upper()
-        user_attempts = user_attempts + 1
+        user_attempts += 1
         print(user_guess)
         if check_word == random_word:
             file_to_write = output_folder / "results.json"
-            result_data = {"round": game_rounds, "category": user_category, "word": random_word, "attempts": user_attempts}
+            result_data = {"round": game_rounds, "category": user_category, "word": random_word, "attempts": user_attempts, "wrong-attempts": wrong_attempts}
             result_list.append(result_data)
             if os.stat(file_to_write).st_size == 0:
                 with open(file_to_write, 'w') as json_file:
@@ -76,7 +80,8 @@ def solve_word(random_word, attempts, user_category, game_rounds, result_list):
             return("\nFelicitari! Ai gasit cuvantul {} din {} incercari.".format(random_word, user_attempts))
         else:
             print("\nMai ai {} incercari ramase.".format(attempts))
-        attempts = attempts - 1
+            wrong_attempts = user_attempts - correct_guess_attempts
+        attempts -= 1
         if attempts == 0:
             return("Imi pare rau, ai atins limita de {} incercari.".format(initial_attempts))
     user_guess = ''.join(new_word).upper()
