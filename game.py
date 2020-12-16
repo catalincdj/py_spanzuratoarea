@@ -80,7 +80,7 @@ def solve_word(random_word, attempts, user_category, game_rounds, result_list):
             return("\nFelicitari! Ai gasit cuvantul {} din {} incercari.".format(random_word, user_attempts))
         else:
             print("\nMai ai {} incercari ramase.".format(attempts))
-            wrong_attempts = user_attempts - correct_guess_attempts
+            wrong_attempts = abs(user_attempts - correct_guess_attempts)
         attempts -= 1
         if attempts == 0:
             return("Imi pare rau, ai atins limita de {} incercari.".format(initial_attempts))
